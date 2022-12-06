@@ -1,13 +1,19 @@
-import React, { useState } from "react";
-import { TouchableHighlight, StyleSheet, Text, TextInput, View } from "react-native";
-import { AntDesign, Entypo } from "@expo/vector-icons";
+import React, {useState} from 'react';
+import {
+  TouchableHighlight,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+// import {AntDesign, Entypo} from '@expo/vector-icons';
 
-const App = () => {
+const Page2 = () => {
   /* -------------------------------- 본명 유효성 검사 ------------------------------- */
-  const [name, setName] = useState("");
+  const [name, setName] = useState('');
   const [isName, setIsName] = useState(false);
 
-  const textValid = (text) => {
+  const textValid = text => {
     const nameValid = /^([가-힣]){1,15}$/;
     if (nameValid.test(text)) {
       setIsName(true);
@@ -18,9 +24,9 @@ const App = () => {
   };
 
   /* --------------------------------- 핸드폰 번호 입력 --------------------------------- */
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState('');
 
-  const phoneText = (text) => {
+  const phoneText = text => {
     setPhoneNumber(text);
   };
 
@@ -32,58 +38,79 @@ const App = () => {
       setMsgIng(true); // input disable
       //전화번호 '-' 추가
       if (phoneNumber.length === 9) {
-        setPhoneNumber(phoneNumber.replace(/(\d{2})(\d{3})(\d{4})/, "$1-$2-$3"));
+        setPhoneNumber(
+          phoneNumber.replace(/(\d{2})(\d{3})(\d{4})/, '$1-$2-$3'),
+        );
       }
       if (phoneNumber.length === 10) {
-        setPhoneNumber(phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, "$1-$2-$3"));
+        setPhoneNumber(
+          phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'),
+        );
       }
       if (phoneNumber.length === 11) {
-        setPhoneNumber(phoneNumber.replace(/-/g, "").replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"));
+        setPhoneNumber(
+          phoneNumber
+            .replace(/-/g, '')
+            .replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'),
+        );
       }
     } else {
       // 입력값 9 미만 => 인증번호 전송 불가
-      alert("인증번호를 정확히 입력해 주세요");
+      alert('인증번호를 정확히 입력해 주세요');
     }
   };
 
   /* ------------------------------ 인증번호 onchange ----------------------------- */
-  const [number, setNumber] = useState("");
+  const [number, setNumber] = useState('');
 
-  const onchangeNumber = (text) => {
+  const onchangeNumber = text => {
     setNumber(text);
   };
 
   //인증번호 전송 전까지 구현하였습니다.
   //페이지 라우터 구현을 할 시간이 부족하여 App.js App2.js에 각각 구현해두었습니다.
 
-
   return (
     <View style={styles.container}>
       <View>
         <View style={styles.header}>
           <View style={styles.headerLeft}>
-            <AntDesign name="left" size={30} color="black" />
+            {/* <AntDesign name="left" size={30} color="black" /> */}
+            <Text>아이콘</Text>
           </View>
           <View style={styles.headerRight}>
             <Text style={styles.headerText}>간편 30초 가입</Text>
           </View>
         </View>
         <View style={styles.top}>
-          <Text style={styles.topText}>2. 안전한 세모스 이용을 위한 본인 인증</Text>
+          <Text style={styles.topText}>
+            2. 안전한 세모스 이용을 위한 본인 인증
+          </Text>
           <Text style={styles.topText}>2/2</Text>
         </View>
         <View style={styles.bottom}>
           <View style={styles.inputBox}>
             <View style={styles.iconBox}>
-              {name.length >= 1 ? <Entypo name="circle-with-cross" size={24} color="#6666" /> : null}
+              {/* {name.length >= 1 ? <Entypo name="circle-with-cross" size={24} color="#6666" /> : null} */}
+              {name.length >= 1 ? <Text>아이콘3</Text> : null}
               {isName ? (
-                <AntDesign style={styles.icon} name="checkcircleo" size={24} color="#1e90ff" />
+                // <AntDesign style={styles.icon} name="checkcircleo" size={24} color="#1e90ff" />
+                <Text>아이콘1</Text>
               ) : name.length >= 2 ? (
-                <AntDesign style={styles.icon} name="exclamationcircleo" size={24} color="red" />
+                // <AntDesign style={styles.icon} name="exclamationcircleo" size={24} color="red" />
+                <Text>아이콘2</Text>
               ) : null}
             </View>
             <TextInput
-              style={[styles.input, name.length === 1 && styles.inputLineDark, isName ? styles.inputLineTrue : name.length >= 2 ? styles.inputLineFalse : null]}
+              style={[
+                styles.input,
+                name.length === 1 && styles.inputLineDark,
+                isName
+                  ? styles.inputLineTrue
+                  : name.length >= 2
+                  ? styles.inputLineFalse
+                  : null,
+              ]}
               multiline={true}
               scrollEnabled={true}
               maxLength={15}
@@ -91,13 +118,24 @@ const App = () => {
               value={name}
               placeholder="인증을 위해 본명을 입력해 주세요."
             />
-            {!isName && name.length >= 2 ? <Text style={styles.errorMsg}>올바른 이름으로 작성해 주세요!</Text> : null}
+            {!isName && name.length >= 2 ? (
+              <Text style={styles.errorMsg}>
+                올바른 이름으로 작성해 주세요!
+              </Text>
+            ) : null}
           </View>
           <View style={styles.bottomBox}>
             <View>
               <TextInput
                 keyboardType="phone-pad"
-                style={[styles.input, msgIng ? styles.buttonTextNo : phoneNumber.length >= 1 ? styles.inputLineDark : null]}
+                style={[
+                  styles.input,
+                  msgIng
+                    ? styles.buttonTextNo
+                    : phoneNumber.length >= 1
+                    ? styles.inputLineDark
+                    : null,
+                ]}
                 maxLength={13}
                 onChangeText={phoneText}
                 value={phoneNumber}
@@ -106,8 +144,18 @@ const App = () => {
               />
             </View>
             <View style={styles.msgButtonBox}>
-              <TouchableHighlight style={[styles.msgButton, msgIng ? styles.msgButtonIng : null]} activeOpacity={0.6} underlayColor="#DDDDDD" onPress={sendMsg}>
-                <Text style={[styles.buttonText, msgIng ? styles.msgTextIng : null]}>{msgIng ? "전송완료" : "인증번호 전송"}</Text>
+              <TouchableHighlight
+                style={[styles.msgButton, msgIng ? styles.msgButtonIng : null]}
+                activeOpacity={0.6}
+                underlayColor="#DDDDDD"
+                onPress={sendMsg}>
+                <Text
+                  style={[
+                    styles.buttonText,
+                    msgIng ? styles.msgTextIng : null,
+                  ]}>
+                  {msgIng ? '전송완료' : '인증번호 전송'}
+                </Text>
               </TouchableHighlight>
             </View>
           </View>
@@ -117,14 +165,21 @@ const App = () => {
               <View>
                 <TextInput
                   keyboardType="phone-pad"
-                  style={[styles.input, number.length >= 1 ? styles.inputLineDark : null]}
+                  style={[
+                    styles.input,
+                    number.length >= 1 ? styles.inputLineDark : null,
+                  ]}
                   maxLength={6}
                   onChangeText={onchangeNumber}
                   value={number}
                 />
               </View>
               <View style={styles.msgButtonBox}>
-                <TouchableHighlight style={styles.msgButton} activeOpacity={0.6} underlayColor="#DDDDDD" onPress={() => console.log("인증번호 검사")}>
+                <TouchableHighlight
+                  style={styles.msgButton}
+                  activeOpacity={0.6}
+                  underlayColor="#DDDDDD"
+                  onPress={() => console.log('인증번호 검사')}>
                   <Text style={styles.buttonText}>인증 완료</Text>
                 </TouchableHighlight>
               </View>
@@ -138,9 +193,12 @@ const App = () => {
         underlayColor="#DDDDDD"
         onPress={() => {
           // alert("가입 완료");
-        }}
-      >
-        <Text style={[styles.buttonText, styles.buttonTextNo]}>{msgIng || name.length > 0 ? "🎉 가입 완료 🎉" : "작성을 완료해 주세요!"}</Text>
+        }}>
+        <Text style={[styles.buttonText, styles.buttonTextNo]}>
+          {msgIng || name.length > 0
+            ? '🎉 가입 완료 🎉'
+            : '작성을 완료해 주세요!'}
+        </Text>
       </TouchableHighlight>
     </View>
   );
@@ -148,107 +206,107 @@ const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: "100%",
-    justifyContent: "space-between",
+    height: '100%',
+    justifyContent: 'space-between',
   },
   header: {
-    borderBottomColor: "#eeee",
+    borderBottomColor: '#eeee',
     paddingBottom: 10,
     borderBottomWidth: 5,
-    position: "relative",
+    position: 'relative',
     zIndex: 0,
-    width: "100%",
-    alignItems: "center",
+    width: '100%',
+    alignItems: 'center',
     marginTop: 50,
   },
   headerLeft: {
-    position: "absolute",
-    backgroundColor: "#FFF",
+    position: 'absolute',
+    backgroundColor: '#FFF',
     top: 0,
     left: 15,
     zIndex: 50,
   },
   headerRight: {
-    width: "100%",
-    textAlign: "center",
+    width: '100%',
+    textAlign: 'center',
   },
   headerText: {
-    width: "100%",
-    color: "black",
+    width: '100%',
+    color: 'black',
     fontSize: 28,
-    fontWeight: "500",
-    textAlign: "center",
-    justifyContent: "center",
+    fontWeight: '500',
+    textAlign: 'center',
+    justifyContent: 'center',
   },
   top: {
     marginRight: 30,
     marginLeft: 30,
     marginTop: 10,
-    textAlign: "center",
-    flexDirection: "row",
-    justifyContent: "space-between",
+    textAlign: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
   topText: {
-    color: "#1e90ff",
+    color: '#1e90ff',
     fontSize: 22,
     paddingTop: 10,
     marginTop: 10,
     marginBottom: 20,
-    fontWeight: "500",
+    fontWeight: '500',
   },
   /* ---------------------------------- form ---------------------------------- */
   bottom: {
     margin: 30,
   },
   inputBox: {
-    position: "relative",
+    position: 'relative',
     zIndex: 0,
   },
   input: {
     padding: 15,
-    color: "black",
-    borderColor: "#bbb",
+    color: 'black',
+    borderColor: '#bbb',
     borderWidth: 1,
     borderRadius: 8,
     fontSize: 18,
   },
   errorMsg: {
-    borderColor: "red",
+    borderColor: 'red',
     marginTop: 10,
-    color: "red",
+    color: 'red',
   },
   iconBox: {
-    position: "absolute",
-    backgroundColor: "#FFF",
+    position: 'absolute',
+    backgroundColor: '#FFF',
     top: 10,
     right: 15,
     padding: 8,
-    textAlign: "center",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    backgroundColor: "#FFF",
+    textAlign: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#FFF',
   },
   icon: {
     marginLeft: 10,
   },
   inputLineDark: {
-    borderColor: "black",
+    borderColor: 'black',
   },
   inputLineTrue: {
-    borderColor: "#1e90ff",
+    borderColor: '#1e90ff',
   },
   inputLineFalse: {
-    borderColor: "red",
+    borderColor: 'red',
   },
   bottomBox: {
     marginTop: 25,
-    position: "relative",
+    position: 'relative',
   },
   buttonText: {
     fontSize: 18,
-    textAlign: "center",
+    textAlign: 'center',
     zIndex: -1,
-    color: "#fff",
+    color: '#fff',
   },
   buttonBox: {
     margin: 30,
@@ -261,33 +319,33 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     padding: 10,
-    color: "#fff",
+    color: '#fff',
     fontSize: 30,
-    backgroundColor: "#1e90ff",
+    backgroundColor: '#1e90ff',
     borderRadius: 7,
   },
   buttonTextOk: {
-    color: "#fff",
+    color: '#fff',
   },
   buttonTextNo: {
-    color: "#6666",
+    color: '#6666',
   },
   msgButtonBox: {
-    position: "absolute",
+    position: 'absolute',
     top: 10,
     right: 10,
   },
   msgButtonIng: {
-    backgroundColor: "#6666",
+    backgroundColor: '#6666',
   },
   buttonOk: {
-    backgroundColor: "#1e90ff",
+    backgroundColor: '#1e90ff',
   },
   buttonNo: {
-    backgroundColor: "#eeee",
-    borderColor: "#6666",
+    backgroundColor: '#eeee',
+    borderColor: '#6666',
     borderWidth: 1,
   },
 });
 
-export default App;
+export default Page2;
